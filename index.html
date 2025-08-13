@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NUMBER ONE.BIO</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #star-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            background: #000;
+        }
+
+        .container {
+            position: relative;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 255, 64, 0.35);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            box-shadow:
+                0 0 8px rgba(0, 255, 64, 0.40),
+                0 0 22px rgba(0, 255, 64, 0.28),
+                0 0 60px rgba(0, 255, 64, 0.18),
+                inset 0 0 10px rgba(0, 255, 64, 0.16);
+            width: 90%;
+            max-width: 480px;
+            animation: neonPulse 3s ease-in-out infinite;
+        }
+
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .name {
+            font-size: 2.2em;
+            font-weight: 700;
+            background: linear-gradient(90deg, #09ff00, #008512, #00af2c);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+            margin-bottom: 10px;
+        }
+
+        @keyframes shine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes neonPulse {
+            0% {
+                box-shadow:
+                    0 0 8px rgba(0, 255, 64, 0.35),
+                    0 0 22px rgba(0, 255, 64, 0.26),
+                    0 0 60px rgba(0, 255, 64, 0.16),
+                    inset 0 0 8px rgba(0, 255, 64, 0.14);
+            }
+            50% {
+                box-shadow:
+                    0 0 12px rgba(0, 255, 64, 0.55),
+                    0 0 30px rgba(0, 255, 64, 0.40),
+                    0 0 90px rgba(0, 255, 64, 0.28),
+                    inset 0 0 12px rgba(0, 255, 64, 0.22);
+            }
+            100% {
+                box-shadow:
+                    0 0 8px rgba(0, 255, 64, 0.35),
+                    0 0 22px rgba(0, 255, 64, 0.26),
+                    0 0 60px rgba(0, 255, 64, 0.16),
+                    inset 0 0 8px rgba(0, 255, 64, 0.14);
+            }
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-size: 1.2em;
+            position: relative;
+        }
+
+        .badge img {
+            width: 22px;
+            height: 22px;
+            object-fit: cover;
+            vertical-align: middle;
+            border-radius: 50%;
+            filter: drop-shadow(0 0 6px rgba(0, 255, 64, 0.6));
+        }
+
+        .badge:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.7);
+            padding: 4px 8px;
+            font-size: 0.7em;
+            white-space: nowrap;
+            border-radius: 4px;
+            margin-bottom: 6px;
+        }
+
+        .link {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            font-size: 1em;
+            transition: background 0.2s;
+        }
+
+        .link:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .link img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            opacity: 0.8;
+        }
+    </style>
+    
+</head>
+<body>
+
+    <!-- Hintergrund: Sterne -->
+    <canvas id="star-canvas"></canvas>
+
+    <div class="container">
+        <img src="https://cdn.discordapp.com/attachments/1192142718797893724/1396571856865071218/hacker_777.gif?ex=689d8da5&is=689c3c25&hm=484620de83b1023b58c2ddd9aa4faeb348b1f0c81f6dccdc3fd91db19da2fde7&" class="profile-pic" alt="Hisokix">
+        <div class="name" id="glitch-name">TEAM</div>
+        <div class="badges">
+            <span class="badge" data-tooltip="GAMES HACKS"><img src="https://cdn.discordapp.com/attachments/1192142718797893724/1405230347809062943/standard_5.gif?ex=689e123e&is=689cc0be&hm=1239c896bba3c4887ff0714f1a72d6adb85421da280e0495e5bc6caf172e9a50&" alt="GAMES HACKS" /></span>
+            <span class="badge" data-tooltip="SPOOFERS"><img src="https://cdn.discordapp.com/attachments/1192142718797893724/1405229258053255230/standard_4.gif?ex=689e113b&is=689cbfbb&hm=65bef6703fe011e60c08496fe841904f18261fa1415514f1c982b42b5da900e2&" alt="SPOOFERS" /></span>
+            <span class="badge" data-tooltip="TOOLS"><img src="https://cdn.discordapp.com/attachments/1192142718797893724/1405231475909197854/standard_7.gif?ex=689e134b&is=689cc1cb&hm=cd08f7043c614584a3b9b55eabdb31de53d561d51b5fc0c5a80483fe1cdaf314&" alt="TOOLS" /></span>
+        </div>
+        <a class="link" href="https://discord.gg/GX4C8avw">
+            <img src="https://cdn.discordapp.com/attachments/1192142718797893724/1405231437531189288/ezgif-80f75d363c656e.png?ex=689e1342&is=689cc1c2&hm=8b4ef5ab6bfb247cf2f63cee48db55f5ffcd9dffc38fd180a209921c5cdbc646&" alt="Discord">JOIN DISCORD
+        </a>
+    </div>
+
+    <script>
+        // Glitch-Name Wechsler
+        const glitchName = document.getElementById('glitch-name');
+        const names = ["777"];
+        let currentIndex = 0;
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % names.length;
+            glitchName.textContent = names[currentIndex];
+        }, 3000);
+
+        // Interactive network grid background (green neon)
+        const canvas = document.getElementById('star-canvas');
+        const ctx = canvas.getContext('2d');
+
+        const GREEN = '#00ff40';
+        let devicePixelRatioScale = Math.max(window.devicePixelRatio || 1, 1);
+
+        const mouse = { x: null, y: null, radius: 120 };
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        function resizeCanvas() {
+            const { innerWidth, innerHeight } = window;
+            canvas.style.width = innerWidth + 'px';
+            canvas.style.height = innerHeight + 'px';
+            canvas.width = Math.floor(innerWidth * devicePixelRatioScale);
+            canvas.height = Math.floor(innerHeight * devicePixelRatioScale);
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.scale(devicePixelRatioScale, devicePixelRatioScale);
+            initParticles();
+        }
+
+        let particles = [];
+        function initParticles() {
+            const { innerWidth, innerHeight } = window;
+            const count = Math.max(90, Math.min(220, Math.floor((innerWidth * innerHeight) / 16000)));
+            particles = Array.from({ length: count }, () => ({
+                x: Math.random() * innerWidth,
+                y: Math.random() * innerHeight,
+                vx: (Math.random() - 0.5) * 0.6,
+                vy: (Math.random() - 0.5) * 0.6,
+                size: 1 + Math.random() * 1.2
+            }));
+        }
+
+        function draw() {
+            const { innerWidth, innerHeight } = window;
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, innerWidth, innerHeight);
+
+            // Draw particles
+            ctx.fillStyle = GREEN;
+            ctx.shadowColor = GREEN;
+            ctx.shadowBlur = 8;
+
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+
+                // Mouse interaction (repel)
+                if (mouse.x !== null) {
+                    const dx = p.x - mouse.x;
+                    const dy = p.y - mouse.y;
+                    const dist = Math.hypot(dx, dy);
+                    if (dist < mouse.radius) {
+                        const force = (mouse.radius - dist) / mouse.radius; // 0..1
+                        const angle = Math.atan2(dy, dx);
+                        p.vx += Math.cos(angle) * 0.08 * force;
+                        p.vy += Math.sin(angle) * 0.08 * force;
+                    }
+                }
+
+                // Move
+                p.x += p.vx;
+                p.y += p.vy;
+
+                // Slow friction for stability
+                p.vx *= 0.995;
+                p.vy *= 0.995;
+
+                // Wrap around screen
+                if (p.x < -10) p.x = innerWidth + 10;
+                if (p.x > innerWidth + 10) p.x = -10;
+                if (p.y < -10) p.y = innerHeight + 10;
+                if (p.y > innerHeight + 10) p.y = -10;
+
+                // Render point
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Draw connections
+            ctx.shadowBlur = 0;
+            const maxLinkDist = 130;
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p1 = particles[i];
+                    const p2 = particles[j];
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const dist = Math.hypot(dx, dy);
+                    if (dist < maxLinkDist) {
+                        const alpha = Math.max(0, 0.6 * (1 - dist / maxLinkDist));
+                        ctx.strokeStyle = `rgba(0,255,64,${alpha})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', () => {
+            devicePixelRatioScale = Math.max(window.devicePixelRatio || 1, 1);
+            resizeCanvas();
+        });
+
+        resizeCanvas();
+        draw();
+    </script>
+</body>
+</html>
+
