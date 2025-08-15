@@ -362,4 +362,244 @@
 
     <div class="container">
         <div class="music-note" aria-hidden="true">♫</div>
-        <img src="https://cdn.discordapp.com/attachments/1192142718797893724/1396571856865071218/
+        <img src="https://cdn.discordapp.com/attachments/1192142718797893724/1396571856865071218/hacker_777.gif?ex=689d8da5&is=689c3c25&hm=484620de83b1023b58c2ddd9aa4faeb348b1f0c81f6dccdc3fd91db19da2fde7&" class="profile-pic" alt="Hisokix">
+        <div class="name" id="glitch-name">TEAM</div>
+        <div class="badges">
+            <span class="badge" data-tooltip="GAMES HACKS"><img src="https://cdn.discordapp.com/attachments/1192142718797893724/1405230347809062943/standard_5.gif?ex=689e123e&is=689cc0be&hm=1239c896bba3c4887ff0714f1a72d6adb85421da280e0495e5bc6caf172e9a50&" alt="GAMES HACKS" /></span>
+            <span class="badge" data-tooltip="SPOOFERS"><img src="https://cdn.discordapp.com/attachments/1192142718797893724/1405229258053255230/standard_4.gif?ex=689e113b&is=689cbfbb&hm=65bef6703fe011e60c08496fe841904f18261fa1415514f1c982b42b5da900e2&" alt="SPOOFERS" /></span>
+            <span class="badge" data-tooltip="TOOLS"><img src="https://cdn.discordapp.com/attachments/1192142718797893724/1405231475909197854/standard_7.gif?ex=689e134b&is=689cc1cb&hm=cd08f7043c614584a3b9b55eabdb31de53d561d51b5fc0c5a80483fe1cdaf314&" alt="TOOLS" /></span>
+        </div>
+        <a class="link" href="https://discord.gg/GX4C8avw">
+            <img src="https://cdn.discordapp.com/attachments/1192232348134154262/1405439299813507102/11zon_cropped.png?ex=689ed4d8&is=689d8358&hm=728417ee77650b379c924201929881f362fd1bb970b0ce336a3da3198465bb02&" alt="Discord">JOIN DISCORD
+        </a>
+    </div>
+
+    <script>
+        // Glitch-Name Wechsler
+        const glitchName = document.getElementById('glitch-name');
+        const names = ["777"];
+        let currentIndex = 0;
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % names.length;
+            glitchName.textContent = names[currentIndex];
+        }, 3000);
+
+        // Interactive network grid background (green neon)
+        const canvas = document.getElementById('star-canvas');
+        const ctx = canvas.getContext('2d');
+
+        const GREEN = '#00ff40';
+        let devicePixelRatioScale = Math.max(window.devicePixelRatio || 1, 1);
+
+        const mouse = { x: null, y: null, radius: 120 };
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        function resizeCanvas() {
+            const { innerWidth, innerHeight } = window;
+            canvas.style.width = innerWidth + 'px';
+            canvas.style.height = innerHeight + 'px';
+            canvas.width = Math.floor(innerWidth * devicePixelRatioScale);
+            canvas.height = Math.floor(innerHeight * devicePixelRatioScale);
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.scale(devicePixelRatioScale, devicePixelRatioScale);
+            initParticles();
+        }
+
+        let particles = [];
+        function initParticles() {
+            const { innerWidth, innerHeight } = window;
+            const count = Math.max(90, Math.min(220, Math.floor((innerWidth * innerHeight) / 16000)));
+            particles = Array.from({ length: count }, () => ({
+                x: Math.random() * innerWidth,
+                y: Math.random() * innerHeight,
+                vx: (Math.random() - 0.5) * 0.6,
+                vy: (Math.random() - 0.5) * 0.6,
+                size: 1 + Math.random() * 1.2
+            }));
+        }
+
+        function draw() {
+            const { innerWidth, innerHeight } = window;
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, innerWidth, innerHeight);
+
+            // Draw particles
+            ctx.fillStyle = GREEN;
+            ctx.shadowColor = GREEN;
+            ctx.shadowBlur = 8;
+
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+
+                // Mouse interaction (repel)
+                if (mouse.x !== null) {
+                    const dx = p.x - mouse.x;
+                    const dy = p.y - mouse.y;
+                    const dist = Math.hypot(dx, dy);
+                    if (dist < mouse.radius) {
+                        const force = (mouse.radius - dist) / mouse.radius; // 0..1
+                        const angle = Math.atan2(dy, dx);
+                        p.vx += Math.cos(angle) * 0.08 * force;
+                        p.vy += Math.sin(angle) * 0.08 * force;
+                    }
+                }
+
+                // Move
+                p.x += p.vx;
+                p.y += p.vy;
+
+                // Slow friction for stability
+                p.vx *= 0.995;
+                p.vy *= 0.995;
+
+                // Wrap around screen
+                if (p.x < -10) p.x = innerWidth + 10;
+                if (p.x > innerWidth + 10) p.x = -10;
+                if (p.y < -10) p.y = innerHeight + 10;
+                if (p.y > innerHeight + 10) p.y = -10;
+
+                // Render point
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Draw connections
+            ctx.shadowBlur = 0;
+            const maxLinkDist = 130;
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p1 = particles[i];
+                    const p2 = particles[j];
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const dist = Math.hypot(dx, dy);
+                    if (dist < maxLinkDist) {
+                        const alpha = Math.max(0, 0.6 * (1 - dist / maxLinkDist));
+                        ctx.strokeStyle = `rgba(0,255,64,${alpha})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', () => {
+            devicePixelRatioScale = Math.max(window.devicePixelRatio || 1, 1);
+            resizeCanvas();
+        });
+
+        resizeCanvas();
+        draw();
+    </script>
+
+    <!-- Audio Player JavaScript -->
+    <script>
+        const audio = document.getElementById('audio-player');
+        // Removed play/pause button per request
+        const playPauseBtn = null;
+        const volumeSlider = document.getElementById('volume-slider');
+        const muteBtn = document.getElementById('mute-btn');
+
+        
+
+        // Play/Pause removed
+
+        // Autoplay at 30% with muted trick, then unmute and sync UI
+        document.addEventListener('DOMContentLoaded', () => {
+            audio.volume = 0.3;
+            volumeSlider.value = 30;
+            const playPromise = audio.play();
+            if (playPromise && typeof playPromise.then === 'function') {
+                playPromise.then(() => {
+                    setTimeout(() => {
+                        audio.muted = false;
+                        audio.volume = 0.3;
+                        volumeSlider.value = 30;
+                        // playing state
+                    }, 200);
+                }).catch(() => {});
+            }
+        });
+
+        // Retry on visibility and first user interaction
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible' && audio.paused) {
+                audio.play().then(() => {
+                    audio.muted = false;
+                    audio.volume = 0.3;
+                    volumeSlider.value = 30;
+                    muteBtn.textContent = '🔊';
+                }).catch(() => {});
+            }
+        });
+
+        const startOnFirstInteraction = () => {
+            audio.muted = false;
+            audio.volume = 0.3;
+            volumeSlider.value = 30;
+            audio.play().then(() => {
+                muteBtn.textContent = '🔊';
+            }).catch(() => {});
+            window.removeEventListener('click', startOnFirstInteraction);
+            window.removeEventListener('touchstart', startOnFirstInteraction, { passive: true });
+            window.removeEventListener('pointerdown', startOnFirstInteraction);
+            window.removeEventListener('keydown', startOnFirstInteraction);
+        };
+        window.addEventListener('click', startOnFirstInteraction);
+        window.addEventListener('touchstart', startOnFirstInteraction, { passive: true });
+        window.addEventListener('pointerdown', startOnFirstInteraction);
+        window.addEventListener('keydown', startOnFirstInteraction);
+
+        // Volume control
+        volumeSlider.addEventListener('input', (e) => {
+            const volume = e.target.value / 100;
+            audio.muted = false;
+            audio.volume = volume;
+            muteBtn.textContent = volume <= 0.001 ? '🔇' : '🔊';
+        });
+
+        // Audio ended event (no UI change; keep mute icon state)
+        audio.addEventListener('ended', () => {});
+
+        // Set initial volume (safety)
+        audio.volume = 0.3;
+
+        // Mute/Unmute toggle via icon
+        const setMuteIcon = () => {
+            muteBtn.textContent = (audio.muted || audio.volume <= 0.001) ? '🔇' : '🔊';
+        };
+        setMuteIcon();
+        muteBtn.addEventListener('click', () => {
+            if (audio.muted || audio.volume <= 0.001) {
+                audio.muted = false;
+                if (audio.volume <= 0.001) {
+                    audio.volume = Math.max(0.3, parseInt(volumeSlider.value, 10) / 100 || 0.3);
+                    volumeSlider.value = Math.round(audio.volume * 100);
+                }
+                setMuteIcon();
+                if (audio.paused) {
+                    audio.play().catch(() => {});
+                }
+            } else {
+                audio.muted = true;
+                setMuteIcon();
+            }
+        });
+    </script>
+</body>
+</html>
